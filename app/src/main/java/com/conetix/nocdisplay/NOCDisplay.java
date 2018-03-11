@@ -96,7 +96,6 @@ public class NOCDisplay extends Activity {
                 String android_id = Secure.getString(mContext.getContentResolver(),
                         Secure.ANDROID_ID);
                 Log.d("DEVICE_ID", android_id);
-
                 URL url =  new URL("http://ELASTICSEARCHSERVER:9200/quickdash/" + android_id + "/1/");
                 HttpURLConnection httpuc = (HttpURLConnection) url.openConnection();
 
@@ -106,15 +105,13 @@ public class NOCDisplay extends Activity {
                 StringBuilder sb = new StringBuilder();
                 String line = null;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line).append("\n");
 
                 }
                 httpuc.disconnect();
 
                 // convert to a JSONObject to return
-                JSONObject jconf = new JSONObject(sb.toString());
-                return jconf;
-
+                return new JSONObject(sb.toString());
 
 
             } catch (Exception e) {
